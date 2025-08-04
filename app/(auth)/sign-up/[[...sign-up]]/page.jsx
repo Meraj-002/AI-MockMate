@@ -5,7 +5,7 @@ export default function Page() {
           <main className="w-full flex">
               <div className="relative flex-1 hidden items-center justify-center h-screen bg-gray-900 lg:flex">
                   <div className="relative z-10 w-full max-w-md">
-                      <img src="https://floatui.com/logo-dark.svg" width={150} />
+                      <img src="/banlogow.png" width={250} />
                       <div className=" mt-16 space-y-3">
                           <h3 className="text-white text-3xl font-bold">Welcome to AI Mock Interview</h3>
                           <p className="text-gray-300">
@@ -35,7 +35,7 @@ export default function Page() {
               <div className="flex-1 flex items-center justify-center h-screen">
                   <div className="w-full max-w-md space-y-8 px-4 bg-white text-gray-600 sm:px-0">
                       <div className="">
-                          <img src="https://floatui.com/logo.svg" width={150} className="lg:hidden" />
+                          <img src="/banlogo.png" width={150} className="lg:hidden" />
                           
                       </div>
                       
