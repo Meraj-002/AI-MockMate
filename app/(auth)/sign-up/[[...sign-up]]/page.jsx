@@ -1,18 +1,16 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { SignUp } from '@clerk/nextjs'
 
-export default function Home() {
+export default function Page() {
   return (
-    <main className="w-full flex">
+          <main className="w-full flex">
               <div className="relative flex-1 hidden items-center justify-center h-screen bg-gray-900 lg:flex">
                   <div className="relative z-10 w-full max-w-md">
-                      <img src='/banlogow.png' width={250} />
+                      <img src="https://floatui.com/logo-dark.svg" width={150} />
                       <div className=" mt-16 space-y-3">
-                          <h3 className="text-white text-3xl font-bold">Welcome to AI Mock Mate</h3>
+                          <h3 className="text-white text-3xl font-bold">Welcome to AI Mock Interview</h3>
                           <p className="text-gray-300">
-                          Generate personalized interview questions based on your job role and experience.
-                              </p>
+                              Create an account and get access to all features for 30-days, No credit card required.
+                          </p>
                           <div className="flex items-center -space-x-2 overflow-hidden">
                               <img src="https://randomuser.me/api/portraits/women/79.jpg" className="w-10 h-10 rounded-full border-2 border-white" />
                               <img src="https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg" className="w-10 h-10 rounded-full border-2 border-white" />
@@ -46,5 +44,5 @@ export default function Home() {
                   </div>
               </div>
           </main>
-  );
-}
+      )
+  }
