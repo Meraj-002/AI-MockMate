@@ -16,6 +16,7 @@ function RecordAnswerSection({ mockInterviewQuestion, activeQuestionIndex, inter
   const [userAnswer, setUserAnswer] = useState('');
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
+  const [shouldProcess, setShouldProcess] = useState(false);
   const {
     error,
     interimResult,
@@ -30,26 +31,44 @@ function RecordAnswerSection({ mockInterviewQuestion, activeQuestionIndex, inter
     useLegacyResults: false
   });
 
-  useEffect(() => {
-    results.map((result) => (
-      setUserAnswer(prevAns => prevAns + result.transcript)
-    ))
-  }, [results])
+  // useEffect(() => {
+  //   results.map((result) => (
+  //     setUserAnswer(prevAns => prevAns + result.transcript)
+  //   ))
+  // }, [results])
 
-  useEffect(()=>{
-    if(!isRecording && userAnswer.length>10){
-      UpdateUserAnswer();
-    }
+  // useEffect(()=>{
+  //   if(!isRecording && userAnswer.length>10){
+  //     UpdateUserAnswer();
+  //   }
 
-  },[userAnswer])
+  // },[userAnswer])
 
-  const StartStopRecording = async () => {
+  const StartStopRecording = () => {
     if (isRecording) {
-      stopSpeechToText()
+      stopSpeechToText();
+      setShouldProcess(true); // 🧠 Mark that we should process when recording stops
     } else {
+      setUserAnswer('');
+      setResults([]);
       startSpeechToText();
     }
+  };
+
+  // 2. When recording stops and flag is true, process once
+useEffect(() => {
+  if (!isRecording && shouldProcess && userAnswer.length > 10) {
+    setShouldProcess(false); // prevent multiple triggers
+    UpdateUserAnswer();
   }
+}, [isRecording, shouldProcess]);
+
+// 3. Optional: Append only *new* transcript
+useEffect(() => {
+  if (results.length > 0) {
+    setUserAnswer((prevAns) => prevAns + " " + results.map((r) => r.transcript).join(" "));
+  }
+}, [results]);
 
   const UpdateUserAnswer = async () => {
 
@@ -117,6 +136,12 @@ function RecordAnswerSection({ mockInterviewQuestion, activeQuestionIndex, inter
           :
           <h2 className='text-blue-500 flex gap-2 items-center'>
             <Mic />Record Answer</h2>}</Button>
+
+            {loading && (
+  <p className="text-gray-400 text-sm animate-pulse">
+    Analyzing your answer...
+  </p>
+)}
 
       {/* <Button className='mt-7' onClick={() => console.log(userAnswer)}>Show User Answer</Button> */}
       {/* <ul>
